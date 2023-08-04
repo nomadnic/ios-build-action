@@ -118,6 +118,10 @@ inputs:
     description: 'Custom Keychain Name'
     required: false
     default: "ios-build.keychain"
+  custom-keychain-password:
+    description: 'Custom Keychain Password'
+    required: false
+    default: ""
 runs:
   using: "node16"
   main: "dist/index.js"
