@@ -5,7 +5,6 @@ platform :ios do
   lane :export_ipa do
     decode_file
 
-    keychain_password = SecureRandom.uuid
     keychain_name = nil
     if !ENV['CUSTOM_KEYCHAIN_NAME'].empty?
       keychain_name = ENV['CUSTOM_KEYCHAIN_NAME']
@@ -13,10 +12,23 @@ platform :ios do
       keychain_name = 'ios-build.keychain'
     end
 
+    keychain_password = nil
+    if !ENV['CUSTOM_KEYCHAIN_PASSWORD'].empty?
+      keychain_password = ENV['CUSTOM_KEYCHAIN_PASSWORD']
+    else
+      keychain_password = ''
+    end
+
+    # make sure the keychain is always removed.
+    begin
+      delete_keychain(name: keychain_name)
+    rescue
+    end
+
     create_keychain(
       name: keychain_name,
       password: keychain_password,
-      default_keychain: true,
+      default_keychain: false,
       unlock: true,
       timeout: 3600
     )
