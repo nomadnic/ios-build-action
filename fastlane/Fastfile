@@ -19,19 +19,19 @@ platform :ios do
       keychain_password = ''
     end
 
-    # make sure the keychain is always removed.
-    begin
-      delete_keychain(name: keychain_name)
-    rescue
-    end
+    # # make sure the keychain is always removed.
+    # begin
+    #   delete_keychain(name: keychain_name)
+    # rescue
+    # end
 
-    create_keychain(
-      name: keychain_name,
-      password: keychain_password,
-      default_keychain: true,
-      unlock: true,
-      timeout: 3600
-    )
+    # create_keychain(
+    #   name: keychain_name,
+    #   password: keychain_password,
+    #   default_keychain: true,
+    #   unlock: true,
+    #   timeout: 3600
+    # )
 
     if @is_split_cer
       import_certificate(
@@ -228,7 +228,7 @@ platform :ios do
       build_path: use_build_path ? ENV['BUILD_PATH'] : nil
     )
 
-    delete_keychain(name: keychain_name)
+    # delete_keychain(name: keychain_name)
   end
 
   # https://github.com/CocoaPods/Xcodeproj/issues/505#issuecomment-584699008
